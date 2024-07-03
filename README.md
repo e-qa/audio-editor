@@ -1,8 +1,21 @@
-# React + Vite
+# Audio Editor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An app for audio editing, designed for trimming, speeding up, and adjusting pitch with ease.
 
-Currently, two official plugins are available:
+## Run Locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Clone, `cd` into this repo, then:
+
+```sh
+# install dependencies
+    npm install
+# run local dev server
+    npm run dev
+```
+
+## Used Technologies
+
+- [React](https://react.dev/)
+- [WaveSurfer.js](https://wavesurfer.xyz/)
+- [DaisyUI](https://daisyui.com/)
+- [Tailwindcss](https://tailwindcss.com/)
