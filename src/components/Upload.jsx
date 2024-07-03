@@ -12,7 +12,7 @@ const Upload = () => {
     <div>
       <input
         type="file"
-        className="file-input file-input-ghost file-input-bordered"
+        className="file-input  file-input-success file-input-bordered"
         onChange={(e) => handleChanges(e)}
       />
     </div>

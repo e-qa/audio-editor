@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import WaveSurfer from "wavesurfer.js";
 import { useFile } from "../FileContext";
+import Hover from "wavesurfer.js/plugins/hover";
 
 const Wave = () => {
   const { file } = useFile();
@@ -16,6 +17,15 @@ const Wave = () => {
         width: "80vw",
         height: 100,
         url: file,
+        plugins: [
+          Hover.create({
+            lineColor: "#50ad39",
+            lineWidth: 1,
+            labelBackground: "#555",
+            labelColor: "#fff",
+            labelSize: "11px",
+          }),
+        ],
       });
     }
   }, [file]);
