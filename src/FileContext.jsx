@@ -4,16 +4,16 @@ const FileContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 export const FileProvider = ({ children }) => {
-  const [file, setFile] = useState(null);
-
+  const [audio, setAudio] = useState(null);
+  const [zoom, setZoom] = useState(0);
   return (
-    <FileContext.Provider value={{ file, setFile }}>
+    <FileContext.Provider value={{ audio, setAudio, zoom, setZoom }}>
       {children}
     </FileContext.Provider>
   );
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const useFile = () => {
+export const useAudio = () => {
   return useContext(FileContext);
 };

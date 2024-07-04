@@ -1,11 +1,11 @@
-import { useFile } from "../FileContext";
+import { useAudio } from "../FileContext";
 
 const Upload = () => {
-  const { setFile } = useFile();
+  const { setAudio } = useAudio();
 
   const handleChanges = (e) => {
     const audioURL = URL.createObjectURL(e.target.files[0]);
-    setFile(audioURL);
+    setAudio(audioURL);
   };
 
   return (

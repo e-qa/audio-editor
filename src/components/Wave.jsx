@@ -1,22 +1,26 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import WaveSurfer from "wavesurfer.js";
-import { useFile } from "../FileContext";
+
 import Hover from "wavesurfer.js/plugins/hover";
+import ControlPanel from "./ControlPanel";
+import { useAudio } from "../FileContext";
 
 const Wave = () => {
-  const { file } = useFile();
+  const { audio, zoom } = useAudio();
+  const [isLoad, setIsLoad] = useState(false);
+
   const waveContainer = useRef(null);
   const wavesurferRef = useRef(null);
-
   useEffect(() => {
     if (!wavesurferRef.current) {
       wavesurferRef.current = WaveSurfer.create({
         container: waveContainer.current,
-        waveColor: "#34374B",
+        waveColor: "#656666",
         progressColor: "#00a96e",
         width: "80vw",
         height: 100,
-        url: file,
+        url: audio,
+        dragToSeek: true,
         plugins: [
           Hover.create({
             lineColor: "#50ad39",
@@ -28,18 +32,21 @@ const Wave = () => {
         ],
       });
     }
-  }, [file]);
+    wavesurferRef.current.on("ready", () => {
+      setIsLoad(true);
+    });
+  }, [audio]);
+
+  useEffect(() => {
+    if (isLoad) {
+      wavesurferRef.current.zoom(zoom);
+    }
+  }, [zoom, isLoad]);
 
   return (
     <div>
-      <div ref={waveContainer} />
-      <button
-        onClick={() => {
-          wavesurferRef.current.playPause();
-        }}
-      >
-        play
-      </button>
+      <div ref={waveContainer} className="flex justify-center" />
+      <ControlPanel wavesurferRef={wavesurferRef} />
     </div>
   );
 };
