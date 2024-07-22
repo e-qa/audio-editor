@@ -1,12 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAudio } from "../FileContext";
 
 /* eslint-disable react/prop-types */
 const ControlPanel = ({ wavesurferRef }) => {
   const { zoom, setZoom, speed, setSpeed } = useAudio();
-
-  const [value, setValue] = useState(30);
+  const [volume, setVolume] = useState(0.4);
   const [isPlaying, setIsPlaying] = useState(false);
+  const handleVolume = (e) => {
+    setVolume(e.target.valueAsNumber);
+  };
+
+  useEffect(() => {
+    if (wavesurferRef.current) {
+      wavesurferRef.current.setVolume(volume);
+    }
+  }, [volume, wavesurferRef]);
 
   return (
     <div className="mt-10 flex items-center justify-around">
@@ -21,14 +29,15 @@ const ControlPanel = ({ wavesurferRef }) => {
       </button>
 
       <div className="flex items-center gap-5">
-        <label htmlFor="volume">Volume</label>
+        <label htmlFor="volumeInput">Volume</label>
         <input
           type="range"
-          id="volume"
-          min={0}
-          max="100"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
+          id="volumeInput"
+          min="0"
+          max="1"
+          value={volume}
+          step="0.1"
+          onChange={(e) => handleVolume(e)}
           className="range range-xs"
         />
       </div>
