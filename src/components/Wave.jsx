@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import WaveSurfer from "wavesurfer.js";
-import Hover from "wavesurfer.js/plugins/hover";
 import RegionsPlugin from "wavesurfer.js/dist/plugins/regions.js";
 
 import ControlPanel from "./ControlPanel";
@@ -25,15 +24,6 @@ const Wave = () => {
         url: audio,
         dragToSeek: true,
         audioRate: 1,
-        plugins: [
-          Hover.create({
-            lineColor: "#00ad6a",
-            lineWidth: 1,
-            labelBackground: "#555",
-            labelColor: "#fff",
-            labelSize: "11px",
-          }),
-        ],
       });
     }
     wavesurferRef.current.on("ready", () => {
@@ -60,7 +50,6 @@ const Wave = () => {
   return (
     <div>
       <div ref={waveContainer} className="flex justify-center" />
-
       <ControlPanel wavesurferRef={wavesurferRef} />
     </div>
   );

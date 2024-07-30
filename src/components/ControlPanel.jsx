@@ -17,19 +17,23 @@ const ControlPanel = ({ wavesurferRef }) => {
   }, [volume, wavesurferRef]);
 
   return (
-    <div className="mt-10 flex items-center justify-around">
-      <button
-        onClick={() => {
-          wavesurferRef.current.playPause();
-          setIsPlaying(!isPlaying);
-        }}
-        className="btn btn-success"
-      >
-        {isPlaying ? "Pause" : "Play"}
-      </button>
+    <div className="mt-10 flex items-center justify-around flex-wrap flex-col md:flex-row">
+      <div className="mb-10 md:m-0">
+        <button
+          onClick={() => {
+            wavesurferRef.current.playPause();
+            setIsPlaying(!isPlaying);
+          }}
+          className="btn btn-success"
+        >
+          {isPlaying ? "Pause" : "Play"}
+        </button>
+      </div>
 
-      <div className="flex items-center gap-5">
-        <label htmlFor="volumeInput">Volume</label>
+      <div className="flex  items-center">
+        <label className="w-40" htmlFor="volumeInput">
+          Volume
+        </label>
         <input
           type="range"
           id="volumeInput"
@@ -41,20 +45,24 @@ const ControlPanel = ({ wavesurferRef }) => {
           className="range range-xs"
         />
       </div>
-      <div className="flex items-center gap-5">
-        <label htmlFor="zoom">Zoom</label>
+      <div className="flex  items-center">
+        <label className="w-40" htmlFor="zoom">
+          Zoom
+        </label>
         <input
           type="range"
           id="zoom"
-          min={6}
-          max={300}
+          min={"0"}
+          max={"1000"}
           value={zoom}
           onChange={(e) => setZoom(e.target.valueAsNumber)}
           className="range range-xs"
         />
       </div>
-      <div className="flex items-center gap-5">
-        <label htmlFor="speed">Playback Rate</label>
+      <div className="flex items-center">
+        <label className="w-40" htmlFor="speed">
+          Playback Rate
+        </label>
         <input
           type="range"
           id="speed"
