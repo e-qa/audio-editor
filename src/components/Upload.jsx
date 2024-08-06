@@ -13,6 +13,7 @@ const Upload = () => {
       <input
         type="file"
         className="file-input  file-input-success file-input-bordered"
+        accept="audio/*"
         onChange={(e) => handleChanges(e)}
       />
     </div>

@@ -1,4 +1,18 @@
+import { useEffect, useState } from "react";
+
 const Navbar = () => {
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  const handleTheme = () => {
+    const newTheme = theme === "light" ? "dracula" : "light";
+    setTheme(newTheme);
+  };
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -55,6 +69,8 @@ const Navbar = () => {
             type="checkbox"
             value="dark"
             className="toggle theme-controller"
+            onChange={handleTheme}
+            checked={theme == "dracula"}
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
