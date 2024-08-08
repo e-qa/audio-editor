@@ -4,6 +4,7 @@ import RegionsPlugin from "wavesurfer.js/dist/plugins/regions.js";
 
 import ControlPanel from "./ControlPanel";
 import { useAudio } from "../FileContext";
+import { setSampler } from "../lib/Sampler";
 
 const Wave = () => {
   const { audio, zoom, speed } = useAudio();
@@ -12,6 +13,7 @@ const Wave = () => {
   const waveContainer = useRef(null);
   const wavesurferRef = useRef(null);
   const wsRegions = useRef(null);
+  const sampler = setSampler(audio);
 
   useEffect(() => {
     if (!wavesurferRef.current) {
@@ -51,6 +53,14 @@ const Wave = () => {
     <div>
       <div ref={waveContainer} className="flex justify-center" />
       <ControlPanel wavesurferRef={wavesurferRef} />
+      <button
+        className="mt-28"
+        onClick={() => {
+          sampler.triggerAttack("C4");
+        }}
+      >
+        start
+      </button>
     </div>
   );
 };
