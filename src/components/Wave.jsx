@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import WaveSurfer from "wavesurfer.js";
 import RegionsPlugin from "wavesurfer.js/dist/plugins/regions.js";
-
 import ControlPanel from "./ControlPanel";
+
 import { useAudio } from "../FileContext";
-import { setSampler } from "../lib/Sampler";
+import { createAudioElement } from "../lib/createAudioElement";
 
 const Wave = () => {
   const { audio, zoom, speed } = useAudio();
@@ -13,7 +13,8 @@ const Wave = () => {
   const waveContainer = useRef(null);
   const wavesurferRef = useRef(null);
   const wsRegions = useRef(null);
-  const sampler = setSampler(audio);
+  const audioSrc = createAudioElement(audio);
+  const audioElement = useRef(audioSrc);
 
   useEffect(() => {
     if (!wavesurferRef.current) {
@@ -23,18 +24,19 @@ const Wave = () => {
         progressColor: "#00a96e",
         width: "80vw",
         height: 100,
-        url: audio,
+        media: audioElement.current,
         dragToSeek: true,
         audioRate: 1,
       });
     }
+
     wavesurferRef.current.on("ready", () => {
       setIsLoad(true);
       wsRegions.current = wavesurferRef.current.registerPlugin(
         RegionsPlugin.create()
       );
     });
-  }, [audio]);
+  }, [audioElement]);
 
   useEffect(() => {
     if (isLoad) {
@@ -53,14 +55,7 @@ const Wave = () => {
     <div>
       <div ref={waveContainer} className="flex justify-center" />
       <ControlPanel wavesurferRef={wavesurferRef} />
-      <button
-        className="mt-28"
-        onClick={() => {
-          sampler.triggerAttack("C4");
-        }}
-      >
-        start
-      </button>
+      <button onClick={() => audioElement.current.play()}>play</button>
     </div>
   );
 };
